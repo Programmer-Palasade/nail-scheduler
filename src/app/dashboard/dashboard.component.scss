@@ -19,3 +19,17 @@
 .dashboard-card-content {
   text-align: center;
 }
+
+mat-card-title {
+  text-align: center;
+  padding: 10px;
+  
+  h1 {
+    font-size: 22pt;
+  }
+}
+
+mat-card-subtitle {
+  text-align: center;
+  color: black;
+}

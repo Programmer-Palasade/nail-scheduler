@@ -29,19 +29,22 @@ export class DashboardComponent {
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
+
+        //Mobile View
         return [
-          { title: 'Card 1', cols: 1, rows: 1 },
-          { title: 'Card 2', cols: 1, rows: 1 },
-          { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
+          { title: 'My Services', cols: 2, rows: 1, color: "background-color: #7783EC" },
+          { title: 'My Availability', cols: 2, rows: 1, color: "background-color: #28A8A8"},
+          { title: 'My Appointments', cols: 2, rows: 1, color: "background-color: #9F3E61" },
+          { title: 'My Business', cols: 2, rows: 1, color: "background-color: #D34D4D" }
         ];
       }
 
+      //Desktop View
       return [
-        { title: 'Card 1', cols: 2, rows: 1 },
-        { title: 'Card 2', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 }
+        { title: 'My Services', cols: 2, rows: 1, color: "background-color: #7783EC" },
+        { title: 'My Availability', cols: 1, rows: 1, color: "background-color: #28A8A8"},
+        { title: 'My Appointments', cols: 1, rows: 2, color: "background-color: #9F3E61" },
+        { title: 'My Business', cols: 1, rows: 1, color: "background-color: #D34D4D" }
       ];
     })
   );
