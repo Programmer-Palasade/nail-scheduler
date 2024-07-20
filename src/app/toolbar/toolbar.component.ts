@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { DashboardComponent } from '../dashboard/dashboard.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
@@ -27,6 +28,7 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 })
 export class ToolbarComponent {
   private breakpointObserver = inject(BreakpointObserver);
+  router = inject(Router);
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(

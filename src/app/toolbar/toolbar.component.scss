@@ -15,3 +15,28 @@
   top: 0;
   z-index: 1;
 }
+
+.flex-spacer {
+  flex: auto;
+  padding: auto;
+  text-align: center;
+}
+
+.icon {
+  height: 50px;
+}
+
+mat-icon {
+  cursor: pointer;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  cursor: pointer;
+}
+
+
+
