@@ -2,7 +2,7 @@
   <mat-grid-list cols="2" rowHeight="350px">
     @for (card of cards | async; track card) {
       <mat-grid-tile [colspan]="card.cols" [rowspan]="card.rows">
-        <mat-card class="dashboard-card" [style]="card.color">
+        <mat-card class="dashboard-card" [style]="card.color" (click)="this.router.navigate([card.route])">
             <mat-card-title class="center-content">
               <h1>{{card.title}}</h1>
               
