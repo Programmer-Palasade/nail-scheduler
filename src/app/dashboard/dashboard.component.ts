@@ -28,7 +28,7 @@ export class DashboardComponent {
   router = inject(Router);
 
   //Simple Flag to dictate dashboard view (will remove with addition of login)
-  isCustomer = !false;
+  isCustomer = false;
 
   /** Based on the screen size, switch from standard to one column per row */
 
