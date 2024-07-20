@@ -1,6 +1,5 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { collection, doc, docData, Firestore, getDoc, onSnapshot, Timestamp, Unsubscribe } from '@angular/fire/firestore';
+import { collection, doc, Firestore, getDoc, onSnapshot, Timestamp, Unsubscribe } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 import { User } from '@angular/fire/auth';
 
