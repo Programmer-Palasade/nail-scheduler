@@ -64,12 +64,15 @@ export class DashboardComponent {
         //Mobile View
         return [
           { title: 'Book an Appointment', cols: 2, rows: 1, color: "background-color: #28A8A8", route: '/search' },
+          { title: 'View my Appointments', cols: 2, rows: 1, color: "background-color: #9F3E61", route: '/search' },
         ];
       }
 
       //Desktop View
       return [
         { title: 'Book an Appointment', cols: 2, rows: 1, color: "background-color: #28A8A8", route: '/search'  },
+        { title: 'View my Appointments', cols: 2, rows: 1, color: "background-color: #9F3E61", route: '/appointments' },
+        
       ];
     })
   );
