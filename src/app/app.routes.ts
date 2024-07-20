@@ -4,6 +4,7 @@ import { BusinessAppointmentsComponent } from './business-appointments/business-
 import { BusinessAvailabilityComponent } from './business-availability/business-availability.component';
 import { BusinessServicesComponent } from './business-services/business-services.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ListViewerComponent } from './list-viewer/list-viewer.component';
 
 
 export const routes: Routes = [
@@ -12,5 +13,6 @@ export const routes: Routes = [
     {path: 'business/appointments', component: BusinessAppointmentsComponent},
     {path: 'business/availability', component: BusinessAvailabilityComponent},
     {path: 'business/services', component: BusinessServicesComponent},
+    {path: 'search', component: ListViewerComponent},
     {path: '', redirectTo: '/home', pathMatch: 'full'}
 ];

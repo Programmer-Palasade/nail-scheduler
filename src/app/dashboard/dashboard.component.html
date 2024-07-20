@@ -1,17 +1,34 @@
 <div class="grid-container">
   <mat-grid-list cols="2" rowHeight="350px">
-    @for (card of cards | async; track card) {
-      <mat-grid-tile [colspan]="card.cols" [rowspan]="card.rows">
-        <mat-card class="dashboard-card" [style]="card.color" (click)="this.router.navigate([card.route])">
-            <mat-card-title class="center-content">
-              <h1>{{card.title}}</h1>
-              
-            </mat-card-title>
-          <mat-card-subtitle class="dashboard-card-content">
-            <div>Card Content Here</div>
-          </mat-card-subtitle>
-        </mat-card>
-      </mat-grid-tile>
+    @if(!this.isCustomer){
+      @for (card of business_cards | async; track card) {
+        <mat-grid-tile [colspan]="card.cols" [rowspan]="card.rows">
+          <mat-card class="dashboard-card" [style]="card.color" (click)="this.router.navigate([card.route])">
+              <mat-card-title class="center-content">
+                <h1>{{card.title}}</h1>
+                
+              </mat-card-title>
+            <mat-card-subtitle class="dashboard-card-content">
+              <div>Card Content Here</div>
+            </mat-card-subtitle>
+          </mat-card>
+        </mat-grid-tile>
+      }
+    }
+    @else{
+      @for (card of customer_cards | async; track card) {
+        <mat-grid-tile [colspan]="card.cols" [rowspan]="card.rows">
+          <mat-card class="dashboard-card" [style]="card.color" (click)="this.router.navigate([card.route])">
+              <mat-card-title class="center-content">
+                <h1>{{card.title}}</h1>
+                
+              </mat-card-title>
+            <mat-card-subtitle class="dashboard-card-content">
+              <div>Card Content Here</div>
+            </mat-card-subtitle>
+          </mat-card>
+        </mat-grid-tile>
+      }
     }
   </mat-grid-list>
 </div>

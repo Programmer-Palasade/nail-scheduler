@@ -27,8 +27,13 @@ export class DashboardComponent {
   private breakpointObserver = inject(BreakpointObserver);
   router = inject(Router);
 
+  //Simple Flag to dictate dashboard view (will remove with addition of login)
+  isCustomer = !false;
+
   /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+
+  //Cards for the Business Dashboard
+  business_cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
 
@@ -47,6 +52,24 @@ export class DashboardComponent {
         { title: 'My Availability', cols: 1, rows: 1, color: "background-color: #28A8A8", route: '/business/availability' },
         { title: 'My Appointments', cols: 1, rows: 2, color: "background-color: #9F3E61", route: '/business/appointments'  },
         { title: 'My Business', cols: 1, rows: 1, color: "background-color: #D34D4D", route: '/business'  }
+      ];
+    })
+  );
+
+  //Cards for the Customer Dashboard
+  customer_cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map(({ matches }) => {
+      if (matches) {
+
+        //Mobile View
+        return [
+          { title: 'Book an Appointment', cols: 2, rows: 1, color: "background-color: #28A8A8", route: '/search' },
+        ];
+      }
+
+      //Desktop View
+      return [
+        { title: 'Book an Appointment', cols: 2, rows: 1, color: "background-color: #28A8A8", route: '/search'  },
       ];
     })
   );
