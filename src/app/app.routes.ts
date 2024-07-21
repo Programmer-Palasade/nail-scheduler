@@ -6,9 +6,11 @@ import { BusinessServicesComponent } from './business-services/business-services
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListViewerComponent } from './list-viewer/list-viewer.component';
 import { CustomerAppointmentsComponent } from './customer-appointments/customer-appointments.component';
+import { LoginComponent } from './login/login.component';
 
 
 export const routes: Routes = [
+    {path: 'login', component: LoginComponent},
     {path: 'home', component: DashboardComponent},
     {path: 'business', component: BusinessHomeComponent},
     {path: 'business/appointments', component: BusinessAppointmentsComponent},
@@ -16,5 +18,5 @@ export const routes: Routes = [
     {path: 'business/services', component: BusinessServicesComponent},
     {path: 'search', component: ListViewerComponent},
     {path: 'appointments', component: CustomerAppointmentsComponent},
-    {path: '', redirectTo: '/home', pathMatch: 'full'}
+    {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];

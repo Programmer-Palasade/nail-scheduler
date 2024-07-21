@@ -10,7 +10,7 @@ export class FirestoreService implements OnDestroy {
   private fs = inject(Firestore);
   private auth = inject(AuthService);
 
-  private businesses: Map<string, Business> = new Map();
+  public businesses: Map<string, Business> = new Map();
 
   constructor() {
   }

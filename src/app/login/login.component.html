@@ -1,0 +1,15 @@
+@if (!this.auth.logged_in) {
+    <main class="login-page">
+    @if (!this.onPasswordReset) {
+        <hr class="divider">
+
+        <div class="quick-login-box">
+            <button type="button" class="login-google" (click)="login()">Sign in with Google</button>
+        </div>
+    }
+    </main>
+}
+
+@else {
+    <main>{{this.router.navigate(['home'])}}</main>    
+}
