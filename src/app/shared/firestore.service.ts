@@ -1,5 +1,5 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { collection, doc, Firestore, getDoc, onSnapshot, Timestamp, Unsubscribe } from '@angular/fire/firestore';
+import { collection, doc, DocumentData, Firestore, getDoc, onSnapshot, QueryDocumentSnapshot, SnapshotOptions, Timestamp, Unsubscribe, WithFieldValue } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 import { User } from '@angular/fire/auth';
 
@@ -26,13 +26,36 @@ export class FirestoreService implements OnDestroy {
   }
 
   public async get_business(business_id: string): Promise<Business> {
-    let b = await getDoc( doc(this.fs, 'businesses', business_id) ).then( snapshot => {
+    let bus_col = collection(this.fs, 'businesses').withConverter( {
+      toFirestore(business: WithFieldValue<Business>): DocumentData {
+        return {
+          availability: business.availability,
+          icon: business.icon,
+          name: business.name,
+          options: business.options,
+          owner_uid: business.owner_uid,
+          socials: business.socials
+        };
+      },
+      fromFirestore( snapshot: QueryDocumentSnapshot, options: SnapshotOptions ): Business {
+        const data = snapshot.data(options);
+        let new_b = new Business();
+        new_b.availability = data['availability'];
+        new_b.icon = data['icon'];
+        new_b.name = data['name'];
+        new_b.options= data['options'];
+        new_b.owner_uid = data['owner_uid'];
+        new_b.socials = data['socials'];
+        return new_b;
+      }
+    })
+    let b = await getDoc( doc(bus_col, business_id) ).then( snapshot => {
       if (snapshot.exists()) {
         let b = snapshot.data() as Business;
         b.listen(this.fs, business_id);
         return b;
       }
-      return new Business;
+      return new Business();
     });
     this.businesses.get(business_id)?.unlisten();
     this.businesses.set(business_id, b);
