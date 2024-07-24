@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,9 +27,7 @@ import { Router } from '@angular/router';
 export class DashboardComponent {
   private breakpointObserver = inject(BreakpointObserver);
   router = inject(Router);
-
-  //Simple Flag to dictate dashboard view (will remove with addition of login)
-  isCustomer = false;
+  auth = inject(AuthService);
 
   /** Based on the screen size, switch from standard to one column per row */
 
