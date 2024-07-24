@@ -10,11 +10,15 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 import { Business, FirestoreService } from '../shared/firestore.service';
+import {MatTabsModule} from '@angular/material/tabs';
+import { BusinessInfoComponent } from "../business-info/business-info.component";
+import { BusinessServicesComponent } from "../business-services/business-services.component";
+import { BusinessAvailabilityComponent } from "../business-availability/business-availability.component";
 
 @Component({
   selector: 'app-business-home',
   standalone: true,
-  imports: [MatButtonModule, CommonModule, FormsModule, MatButtonModule, MatCardModule, MatIconModule, MatIconModule, MatDividerModule, MatSlideToggleModule, MatFormFieldModule],
+  imports: [BusinessInfoComponent, BusinessAvailabilityComponent, BusinessServicesComponent, MatButtonModule, MatTabsModule, CommonModule, FormsModule, MatButtonModule, MatCardModule, MatIconModule, MatIconModule, MatDividerModule, MatSlideToggleModule, MatFormFieldModule, BusinessInfoComponent, BusinessServicesComponent, BusinessAvailabilityComponent],
   templateUrl: './business-home.component.html',
   styleUrl: './business-home.component.scss'
 })

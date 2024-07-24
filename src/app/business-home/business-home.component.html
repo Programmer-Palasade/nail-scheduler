@@ -1,25 +1,13 @@
-@if (false) {
-    <mat-card class="centered-card">
-        <mat-card-header class="center-content">
-            <mat-card-title>
-                <mat-form-field appearance="outline" color="primary" class="text-box">
-                    <mat-label>Business Name</mat-label>
-                    <input #nameInput matInput value="{{this.business.name}}" (blur)="update_name(nameInput.value)">
-                </mat-form-field>
-            </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="center-content">
-
-        </mat-card-content>
-    </mat-card>
-}
-
-@else {
-    <mat-card class="centered-card">
-        <mat-card-header class="center-content">
-            <mat-card-title>{{this.business.name}}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="center-content">
-        </mat-card-content>
-    </mat-card>
-}
+<mat-card class="centered-card">
+    <mat-tab-group>
+        <mat-tab class= "business-tab" label="Overview">
+            <app-business-info></app-business-info>
+        </mat-tab>
+        <mat-tab label="Services">
+            <app-business-services></app-business-services>
+        </mat-tab>
+        <mat-tab label="Availability">
+            <app-business-availability></app-business-availability>
+        </mat-tab>
+      </mat-tab-group>
+</mat-card> 
