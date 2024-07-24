@@ -18,7 +18,7 @@ import { BusinessAvailabilityComponent } from "../business-availability/business
 @Component({
   selector: 'app-business-home',
   standalone: true,
-  imports: [BusinessInfoComponent, BusinessAvailabilityComponent, BusinessServicesComponent, MatButtonModule, MatTabsModule, CommonModule, FormsModule, MatButtonModule, MatCardModule, MatIconModule, MatIconModule, MatDividerModule, MatSlideToggleModule, MatFormFieldModule, BusinessInfoComponent, BusinessServicesComponent, BusinessAvailabilityComponent],
+  imports: [MatButtonModule, MatTabsModule, CommonModule, FormsModule, MatButtonModule, MatCardModule, MatIconModule, MatIconModule, MatDividerModule, MatSlideToggleModule, MatFormFieldModule, BusinessInfoComponent, BusinessServicesComponent, BusinessAvailabilityComponent],
   templateUrl: './business-home.component.html',
   styleUrl: './business-home.component.scss'
 })
