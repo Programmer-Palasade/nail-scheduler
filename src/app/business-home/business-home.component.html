@@ -4,7 +4,7 @@
 <mat-card class="centered-card">
     <mat-tab-group animationDuration="0ms" fitInkBarToContent="true" backgroundColor="primary">
         <mat-tab class= "business-tab" label="Overview">
-            <app-business-info></app-business-info>
+            <app-business-info [business]="this.business"></app-business-info>
         </mat-tab>
         <mat-tab label="Services">
             <app-business-services></app-business-services>

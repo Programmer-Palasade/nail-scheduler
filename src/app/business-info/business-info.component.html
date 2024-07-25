@@ -17,9 +17,30 @@
 @else {
     <mat-card class="centered-card">
         <mat-card-header class="center-content">
-            <mat-card-title>{{this.business}}</mat-card-title>
+            <mat-card-title>{{this.business.name}}</mat-card-title>
         </mat-card-header>
         <mat-card-content class="center-content">
+
+            <div class="business-detail">
+                <mat-icon>location_on</mat-icon>
+                <a>Star City, AR</a>
+            </div>
+
+            <div class="business-detail">
+                <mat-icon>phone</mat-icon>
+                <a>(870)555-5555</a>
+            </div>
+
+            <div class="business-detail">
+                <mat-icon>email</mat-icon>
+                <a>setsbylyssa&#64;palisade.com</a>
+            </div>
+
+            <h3>Socials</h3>
+            <div class="business-detail">
+                <mat-icon>language</mat-icon>
+                <a>Instagram - &#64;setsby.lyssa</a>
+            </div>
         </mat-card-content>
     </mat-card>
 }

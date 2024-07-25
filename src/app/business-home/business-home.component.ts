@@ -22,21 +22,13 @@ import { BusinessAvailabilityComponent } from "../business-availability/business
   templateUrl: './business-home.component.html',
   styleUrl: './business-home.component.scss'
 })
-export class BusinessHomeComponent implements OnInit{
+export class BusinessHomeComponent {
   firestore = inject(FirestoreService);
-
-  business: Business = new Business();
-  constructor(){
-
+   
+  get business(): Business {
+    return this.firestore.businesses.get("test_business1") ?? new Business();
   }
 
-  ngOnInit(): void {
-    this.firestore.get_business('test_business1').then(
-      value => {
-        console.log(value);//this.business.name = value.name;
-      }
-    );
-  }
 
   update_name(name: string) {
     this.business.name = name;
