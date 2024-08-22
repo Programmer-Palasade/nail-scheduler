@@ -7,10 +7,10 @@
             <app-business-info [business]="this.business"></app-business-info>
         </mat-tab>
         <mat-tab label="Services">
-            <app-business-services></app-business-services>
+            <app-business-services [business]="this.business"></app-business-services>
         </mat-tab>
         <mat-tab label="Availability">
-            <app-business-availability></app-business-availability>
+            <app-business-availability [business]="this.business"></app-business-availability>
         </mat-tab>
 
         @if(this.business.owner_uid == this.auth.user?.uid){

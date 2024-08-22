@@ -1,1 +1,57 @@
-<p>business-availability works!</p>
+@if(this.business.owner_uid == this.auth.user?.uid){
+    <div class="availability-container">
+        <h2>Business Availability</h2>
+        <table class="availability-table">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Hours</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let slot of availability">
+              <td>{{ slot.day }}</td>
+              <td>
+                <ng-container *ngIf="editingDay === slot.day; else displayHours">
+                  <input type="text" [(ngModel)]="newHours" (keydown.enter)="saveEdit(slot.day)" (keydown.escape)="cancelEdit()">
+                </ng-container>
+                <ng-template #displayHours>
+                  {{ slot.hours }}
+                </ng-template>
+              </td>
+              <td>
+                <ng-container *ngIf="editingDay === slot.day; else editButton">
+                  <button (click)="saveEdit(slot.day)">Save</button>
+                  <button (click)="cancelEdit()">Cancel</button>
+                </ng-container>
+                <ng-template #editButton>
+                  <button (click)="startEditing(slot.day, slot.hours)">Edit</button>
+                </ng-template>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+}
+@else{
+    <div class="availability-container">
+        <h2>Business Availability</h2>
+        <table class="availability-table">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Hours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let slot of availability">
+              <td>{{ slot.day }}</td>
+              <td>{{ slot.hours }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+}
+  

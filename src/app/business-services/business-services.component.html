@@ -1,1 +1,99 @@
-<p>business-services works!</p>
+@if(this.business.owner_uid == this.auth.user?.uid){
+  <div class="services-container">
+    <!-- Sizes Section -->
+    <div class="size-container">
+      <h2>Manage Sizes</h2>
+      <div class="size-list">
+        <div *ngFor="let size of sizes" class="size-item">
+          <h3>{{ size.size }}</h3>
+          <p>Price Range: ${{ size.minPrice }} - ${{ size.maxPrice }}</p>
+          <button (click)="editSize(size)">Edit</button>
+          <button (click)="removeSize(size.id)">Remove</button>
+        </div>
+      </div>
+  
+      <div class="add-size-form">
+        <h3 *ngIf="!editingSize">Add New Size</h3>
+        <h3 *ngIf="editingSize">Edit Size</h3>
+        <form #sizeForm="ngForm" (ngSubmit)="editingSize ? saveSize(sizeForm) : addSize(sizeForm)">
+          <label for="size">Size Name:</label>
+          <input type="text" id="size" [(ngModel)]="sizeName" name="size" required>
+  
+          <label for="minPrice">Minimum Price ($):</label>
+          <input type="number" id="minPrice" [(ngModel)]="sizeMinPrice" name="minPrice" required>
+  
+          <label for="maxPrice">Maximum Price ($):</label>
+          <input type="number" id="maxPrice" [(ngModel)]="sizeMaxPrice" name="maxPrice" required>
+  
+          <button type="submit">{{ editingSize ? 'Save Changes' : 'Add Size' }}</button>
+          <button *ngIf="editingSize" type="button" (click)="resetSizeForm()">Cancel</button>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Services Section -->
+    <div class="services-section">
+      <h2>Manage Services</h2>
+      <div class="service-list">
+        <div *ngFor="let service of services" class="service-item">
+          <h3>{{ service.name }}</h3>
+          <p>Price: ${{ service.price }}
+            <span *ngIf="service.lengthBased"> + Length Price</span>
+          </p>
+          <button (click)="editService(service)">Edit</button>
+          <button (click)="removeService(service.id)">Remove</button>
+        </div>
+      </div>
+  
+      <div class="add-service-form">
+        <h3 *ngIf="!editingService">Add New Service</h3>
+        <h3 *ngIf="editingService">Edit Service</h3>
+        <form #serviceForm="ngForm" (ngSubmit)="editingService ? saveService(serviceForm) : addService(serviceForm)">
+          <label for="name">Service Name:</label>
+          <input type="text" id="name" [(ngModel)]="serviceName" name="name" required>
+  
+          <label for="price">Base Price ($):</label>
+          <input type="number" id="price" [(ngModel)]="servicePrice" name="price" required>
+  
+          <label for="lengthBased">Length-Based Pricing:</label>
+          <input type="checkbox" id="lengthBased" [(ngModel)]="serviceLengthBased" name="lengthBased">
+  
+          <label *ngIf="serviceLengthBased" for="lengthPrice">Length-Based Size Price:</label>
+          <!-- <input *ngIf="serviceLengthBased" type="number" id="lengthPrice" [(ngModel)]="serviceLengthPrice" name="lengthPrice" disabled> -->
+  
+          <button type="submit">{{ editingService ? 'Save Changes' : 'Add Service' }}</button>
+          <button *ngIf="editingService" type="button" (click)="resetServiceForm()">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+}
+@else{
+  <div class="customer-view-container">
+    <!-- Sizes Section -->
+    <div class="size-container">
+      <h2>Available Sizes</h2>
+      <div class="size-list">
+        <div *ngFor="let size of sizes" class="size-item">
+          <h3>{{ size.size }}</h3>
+          <p>Price Range: ${{ size.minPrice }} - ${{ size.maxPrice }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Services Section -->
+    <div class="services-section">
+      <h2>Available Services</h2>
+      <div class="service-list">
+        <div *ngFor="let service of services" class="service-item">
+          <h3>{{ service.name }}</h3>
+          <p>Price: ${{ service.price }}
+            <span *ngIf="service.lengthBased"> + Length Price</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+}

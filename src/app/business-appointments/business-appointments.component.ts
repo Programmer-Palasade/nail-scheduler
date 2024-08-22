@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Appointment, Business, FirestoreService } from '../shared/firestore.service';
 import { MatCalendarCellClassFunction, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-business-appointments',
@@ -11,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './business-appointments.component.scss'
 })
 export class BusinessAppointmentsComponent {
-
+  auth = inject(AuthService);
   public firestore = inject(FirestoreService);
 
   /*public highlight_function: MatCalendarCellClassFunction<Date> = (cellDate, view) => {

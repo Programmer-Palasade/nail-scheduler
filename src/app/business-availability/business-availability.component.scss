@@ -1,0 +1,50 @@
+.availability-container {
+    padding: 20px;
+  }
+  
+  .availability-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .availability-table th, .availability-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .availability-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .availability-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .availability-table tbody tr:hover {
+    background-color: #eaeaea;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 10px; /* Increased padding for better user experience */
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    padding: 8px 12px; /* Adds padding for buttons */
+    margin: 0 5px; /* Margin between buttons */
+    border: none;
+    border-radius: 4px;
+    background-color: #C2185B;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  button:hover {
+    background-color: #a20f4a;
+  }
+  

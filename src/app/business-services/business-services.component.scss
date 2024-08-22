@@ -1,0 +1,65 @@
+.services-container {
+    padding: 20px;
+  }
+  
+  .service-list {
+    margin-bottom: 20px;
+  }
+  
+  .service-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .add-service-form {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  form label {
+    margin-top: 10px;
+  }
+  
+  form input {
+    margin-bottom: 10px;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+  
+  .customer-view-container {
+    padding: 20px;
+  }
+  
+  .size-container, .services-section {
+    margin-bottom: 20px;
+  }
+  
+  .size-item, .service-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  h2 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+  }
+  
+  h3 {
+    margin: 0;
+    font-size: 1.2em;
+  }
+  
+  p {
+    margin: 5px 0;
+  }
+  
