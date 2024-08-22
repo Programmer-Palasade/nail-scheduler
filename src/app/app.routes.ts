@@ -11,7 +11,7 @@ import { BusinessHomeComponent } from './business-home/business-home.component';
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent},
-    {path: 'home', component: DashboardComponent},
+    {path: 'home', component: BusinessHomeComponent},
     {path: 'business', component: BusinessHomeComponent},
     {path: 'business/appointments', component: BusinessAppointmentsComponent},
     {path: 'business/availability', component: BusinessAvailabilityComponent},

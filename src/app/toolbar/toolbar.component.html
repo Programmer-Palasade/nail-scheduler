@@ -2,11 +2,11 @@
       <div class="flex-spacer">
         <div class="header">
             <mat-icon (click)="this.router.navigate(['home'])">home</mat-icon>
-            <h1>Nail Scheduler ({{this.auth.viewMode}} View)</h1>
+            <h1>Nail Scheduler</h1>
         </div>
       </div>
-      <h2 style="padding: 10px;">Jane Doe</h2>
-      <button (click)="this.auth.toggleView()">Switch to {{this.auth.viewMode == "Business" ? "Customer" : "Business"}} View</button>
+
+      <button mat-flat-button> Login</button>
     
     </mat-toolbar>
     <!-- Add Content Here -->
