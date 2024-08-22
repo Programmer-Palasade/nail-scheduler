@@ -14,16 +14,19 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { BusinessInfoComponent } from "../business-info/business-info.component";
 import { BusinessServicesComponent } from "../business-services/business-services.component";
 import { BusinessAvailabilityComponent } from "../business-availability/business-availability.component";
+import { AuthService } from '../shared/auth.service';
+import { BusinessAppointmentsComponent } from "../business-appointments/business-appointments.component";
 
 @Component({
   selector: 'app-business-home',
   standalone: true,
-  imports: [MatButtonModule, MatTabsModule, CommonModule, FormsModule, MatButtonModule, MatCardModule, MatIconModule, MatIconModule, MatDividerModule, MatSlideToggleModule, MatFormFieldModule, BusinessInfoComponent, BusinessServicesComponent, BusinessAvailabilityComponent],
+  imports: [MatButtonModule, MatTabsModule, CommonModule, FormsModule, MatButtonModule, MatCardModule, MatIconModule, MatIconModule, MatDividerModule, MatSlideToggleModule, MatFormFieldModule, BusinessInfoComponent, BusinessServicesComponent, BusinessAvailabilityComponent, BusinessAppointmentsComponent],
   templateUrl: './business-home.component.html',
   styleUrl: './business-home.component.scss'
 })
 export class BusinessHomeComponent {
   firestore = inject(FirestoreService);
+  auth = inject(AuthService);
    
   get business(): Business {
     return this.firestore.businesses.get("test_business1") ?? new Business();
