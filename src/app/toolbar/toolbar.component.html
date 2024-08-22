@@ -6,7 +6,12 @@
         </div>
       </div>
 
-      <button mat-flat-button> Login</button>
+      @if(this.auth.logged_in){
+        <button mat-flat-button (click)="this.auth.logout()"> Logout</button>
+      }
+      @else{
+        <button mat-flat-button (click)="this.router.navigate(['/login'])"> Login</button>
+      }
     
     </mat-toolbar>
     <!-- Add Content Here -->
