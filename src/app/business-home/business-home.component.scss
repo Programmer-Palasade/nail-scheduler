@@ -1,0 +1,19 @@
+mat-card{
+    border: 2px ridge #C2185B;
+    background-color: #0000002c;
+    margin: 20px;
+    min-height: 85%;
+  }
+  
+  mat-card-title {
+    text-align: center;
+  }
+  
+  mat-card-subtitle {
+    font-family:'Times New Roman', Times, serif;
+    text-align: center;
+  }  
+
+ ::ng-deep .business-tab{
+    color: black; /* Change the color to black */
+}

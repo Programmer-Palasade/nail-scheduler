@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,9 +27,7 @@ import { Router } from '@angular/router';
 export class DashboardComponent {
   private breakpointObserver = inject(BreakpointObserver);
   router = inject(Router);
-
-  //Simple Flag to dictate dashboard view (will remove with addition of login)
-  isCustomer = false;
+  auth = inject(AuthService);
 
   /** Based on the screen size, switch from standard to one column per row */
 
@@ -39,19 +38,19 @@ export class DashboardComponent {
 
         //Mobile View
         return [
-          { title: 'My Services', cols: 2, rows: 1, color: "background-color: #7783EC", route: '/business/services' },
+          { title: 'My Business', cols: 2, rows: 1, color: "background-color: #7783EC", route: '/business' },
           { title: 'My Availability', cols: 2, rows: 1, color: "background-color: #28A8A8", route: '/business/availability' },
           { title: 'My Appointments', cols: 2, rows: 1, color: "background-color: #9F3E61", route: '/business/appointments'  },
-          { title: 'My Business', cols: 2, rows: 1, color: "background-color: #D34D4D", route: '/business'  }
+          { title: 'My Services', cols: 2, rows: 1, color: "background-color: #D34D4D", route: '/busines/services'  }
         ];
       }
 
       //Desktop View
       return [
-        { title: 'My Services', cols: 2, rows: 1, color: "background-color: #7783EC", route: '/business/services'  },
+        { title: 'My Business', cols: 2, rows: 1, color: "background-color: #7783EC", route: '/business'  },
         { title: 'My Availability', cols: 1, rows: 1, color: "background-color: #28A8A8", route: '/business/availability' },
         { title: 'My Appointments', cols: 1, rows: 2, color: "background-color: #9F3E61", route: '/business/appointments'  },
-        { title: 'My Business', cols: 1, rows: 1, color: "background-color: #D34D4D", route: '/business'  }
+        { title: 'My Services', cols: 1, rows: 1, color: "background-color: #D34D4D", route: '/business/services'  }
       ];
     })
   );

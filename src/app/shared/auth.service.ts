@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Auth, User, user, signInWithPopup, GoogleAuthProvider, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, confirmPasswordReset } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,27 @@ import { Auth, User, user, signInWithPopup, GoogleAuthProvider, signOut, signInW
 export class AuthService implements OnDestroy {
 
   private auth = inject(Auth);
+  private router = inject(Router);
   private google_provider = new GoogleAuthProvider();
 
   public user!: User|null;
   private readonly userDisposable: Subscription|undefined;
 
   public logged_in = false;
+
+  //Temporary View Mode Logic (Prototype Purpose Only)
+  public viewMode: string = "Business";
+
+  toggleView(){
+    if(this.viewMode == "Business"){
+      this.viewMode = "Customer";
+    }
+    else{
+      this.viewMode = "Business";
+    }
+
+    this.router.navigate(['home']);
+  }
 
   constructor() {
     this.google_provider.addScope('email');

@@ -1,6 +1,6 @@
 <div class="grid-container">
   <mat-grid-list cols="2" rowHeight="350px">
-    @if(!this.isCustomer){
+    @if(this.auth.viewMode == "Business"){
       @for (card of business_cards | async; track card) {
         <mat-grid-tile [colspan]="card.cols" [rowspan]="card.rows">
           <mat-card class="dashboard-card" [style]="card.color" (click)="this.router.navigate([card.route])">
