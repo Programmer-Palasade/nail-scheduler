@@ -23,11 +23,13 @@ export class FirestoreService implements OnDestroy {
     fromFirestore( snapshot: QueryDocumentSnapshot, options: SnapshotOptions ): Business {
       const data = snapshot.data(options);
       let new_b = new Business();
-      new_b.availability = data['availability'];
-      new_b.icon = data['icon'];
-      new_b.name = data['name'];
-      new_b.options= data['options'];
-      new_b.owner_uid = data['owner_uid'];
+      new_b.availability = data['availability'] as Map<number, number[]>;
+      new_b.icon = data['icon'] as string;
+      new_b.name = data['name'] as string;
+      for (let arr of Object.entries(data['options'])) {
+        new_b.options.set(arr[0], arr[1] as string[]);
+      }
+      new_b.owner_uid = data['owner_uid'] as string;
       new_b.socials = data['socials'];
       return new_b;
     }

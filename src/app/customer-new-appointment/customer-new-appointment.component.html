@@ -1,0 +1,17 @@
+<mat-card>
+    <mat-card-content>
+        <h2>Business Options:</h2>
+        <form>
+            @for (opt of this.options; track opt[0]) {
+                <label>{{opt[0]}}</label>
+                <section [formGroup]="opt[1]">
+                    @if ((opt[1].value | typeof) === 'array') {
+                        @for (sel of opt[1].value; track sel) {
+                            <mat-checkbox [formControlName]="sel">{{sel}}</mat-checkbox>
+                        }
+                    }
+                </section>
+            }
+        </form>
+    </mat-card-content>
+</mat-card>

@@ -12,6 +12,9 @@
         <mat-tab label="Availability">
             <app-business-availability></app-business-availability>
         </mat-tab>
+        <mat-tab label="New Appointment Preview">
+            <app-customer-new-appointment [_business]="this.business"></app-customer-new-appointment>
+        </mat-tab>
       </mat-tab-group>
 
       <button style="max-width: 50%; margin: auto;" mat-flat-button>Book Appointment</button>

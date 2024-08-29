@@ -14,11 +14,12 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { BusinessInfoComponent } from "../business-info/business-info.component";
 import { BusinessServicesComponent } from "../business-services/business-services.component";
 import { BusinessAvailabilityComponent } from "../business-availability/business-availability.component";
+import { CustomerNewAppointmentComponent } from "../customer-new-appointment/customer-new-appointment.component";
 
 @Component({
   selector: 'app-business-home',
   standalone: true,
-  imports: [MatButtonModule, MatTabsModule, CommonModule, FormsModule, MatButtonModule, MatCardModule, MatIconModule, MatIconModule, MatDividerModule, MatSlideToggleModule, MatFormFieldModule, BusinessInfoComponent, BusinessServicesComponent, BusinessAvailabilityComponent],
+  imports: [MatButtonModule, MatTabsModule, CommonModule, FormsModule, MatButtonModule, MatCardModule, MatIconModule, MatIconModule, MatDividerModule, MatSlideToggleModule, MatFormFieldModule, BusinessInfoComponent, BusinessServicesComponent, BusinessAvailabilityComponent, CustomerNewAppointmentComponent],
   templateUrl: './business-home.component.html',
   styleUrl: './business-home.component.scss'
 })
