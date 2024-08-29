@@ -17,7 +17,9 @@ export class FirestoreService implements OnDestroy {
         name: business.name,
         options: business.options,
         owner_uid: business.owner_uid,
-        socials: business.socials
+        socials: business.socials,
+        services: business.services,
+        sizes: business.sizes
       };
     },
     fromFirestore( snapshot: QueryDocumentSnapshot, options: SnapshotOptions ): Business {
@@ -29,6 +31,8 @@ export class FirestoreService implements OnDestroy {
       new_b.options= data['options'];
       new_b.owner_uid = data['owner_uid'];
       new_b.socials = data['socials'];
+      new_b.services = data['services'];
+      new_b.sizes = data['sizes'];
       return new_b;
     }
   });
@@ -86,6 +90,8 @@ export class Business {
   public options: Map<string, string[]> = new Map();
   public owner_uid: string = "";
   public socials: Map<string, string> = new Map();
+  public services: Service[] =[];
+  public sizes: Size[] = [];
 
   private _appts: Map<string, Appointment> = new Map();
   private unsub: Unsubscribe|undefined;
@@ -123,4 +129,16 @@ export interface Appointment {
   duration: number,
   options: Map<string, boolean[]>,
   timestamp: Timestamp
+}
+
+export interface Service {
+  name: string;
+  price: number;
+  isLengthBased: boolean;
+}
+
+export interface Size {
+  name: string;
+  minPrice: number;
+  maxPrice: number;
 }

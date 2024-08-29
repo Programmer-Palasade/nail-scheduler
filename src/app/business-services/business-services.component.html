@@ -1,99 +1,138 @@
 @if(this.business.owner_uid == this.auth.user?.uid){
   <div class="services-container">
-    <!-- Sizes Section -->
-    <div class="size-container">
-      <h2>Manage Sizes</h2>
-      <div class="size-list">
-        <div *ngFor="let size of sizes" class="size-item">
-          <h3>{{ size.size }}</h3>
-          <p>Price Range: ${{ size.minPrice }} - ${{ size.maxPrice }}</p>
-          <button (click)="editSize(size)">Edit</button>
-          <button (click)="removeSize(size.id)">Remove</button>
-        </div>
-      </div>
+    <h2>Manage Services</h2>
   
-      <div class="add-size-form">
-        <h3 *ngIf="!editingSize">Add New Size</h3>
-        <h3 *ngIf="editingSize">Edit Size</h3>
-        <form #sizeForm="ngForm" (ngSubmit)="editingSize ? saveSize(sizeForm) : addSize(sizeForm)">
-          <label for="size">Size Name:</label>
-          <input type="text" id="size" [(ngModel)]="sizeName" name="size" required>
+    <h3>Sizes</h3>
+    <table class="services-table">
+      <thead>
+        <tr>
+          <th>Size</th>
+          <th>Min Price</th>
+          <th>Max Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let size of this.business.sizes">
+          <td>{{ size.name }}</td>
+          <td>
+            <ng-container *ngIf="editingSize === size.name; else displayMinPrice">
+              <input type="text" [(ngModel)]="newSize.minPrice" (keydown.enter)="saveSizeEdit()" (keydown.escape)="cancelSizeEdit()">
+            </ng-container>
+            <ng-template #displayMinPrice>
+              ${{ size.minPrice }}
+            </ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="editingSize === size.name; else displayMaxPrice">
+              <input type="text" [(ngModel)]="newSize.maxPrice" (keydown.enter)="saveSizeEdit()" (keydown.escape)="cancelSizeEdit()">
+            </ng-container>
+            <ng-template #displayMaxPrice>
+              ${{ size.maxPrice }}
+            </ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="editingSize === size.name; else editSizeButton">
+              <button (click)="saveSizeEdit()">Save</button>
+              <button (click)="cancelSizeEdit()">Cancel</button>
+            </ng-container>
+            <ng-template #editSizeButton>
+              <button (click)="startEditingSize(size.name, size.minPrice, size.maxPrice)">Edit</button>
+            </ng-template>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="text" [(ngModel)]="newSize.name" placeholder="New Size"></td>
+          <td><input type="text" [(ngModel)]="newSize.minPrice" placeholder="Min Price"></td>
+          <td><input type="text" [(ngModel)]="newSize.maxPrice" placeholder="Max Price"></td>
+          <td><button (click)="addNewSize()">Add</button></td>
+        </tr>
+      </tbody>
+    </table>
   
-          <label for="minPrice">Minimum Price ($):</label>
-          <input type="number" id="minPrice" [(ngModel)]="sizeMinPrice" name="minPrice" required>
-  
-          <label for="maxPrice">Maximum Price ($):</label>
-          <input type="number" id="maxPrice" [(ngModel)]="sizeMaxPrice" name="maxPrice" required>
-  
-          <button type="submit">{{ editingSize ? 'Save Changes' : 'Add Size' }}</button>
-          <button *ngIf="editingSize" type="button" (click)="resetSizeForm()">Cancel</button>
-        </form>
-      </div>
-    </div>
-  
-    <!-- Services Section -->
-    <div class="services-section">
-      <h2>Manage Services</h2>
-      <div class="service-list">
-        <div *ngFor="let service of services" class="service-item">
-          <h3>{{ service.name }}</h3>
-          <p>Price: ${{ service.price }}
-            <span *ngIf="service.lengthBased"> + Length Price</span>
-          </p>
-          <button (click)="editService(service)">Edit</button>
-          <button (click)="removeService(service.id)">Remove</button>
-        </div>
-      </div>
-  
-      <div class="add-service-form">
-        <h3 *ngIf="!editingService">Add New Service</h3>
-        <h3 *ngIf="editingService">Edit Service</h3>
-        <form #serviceForm="ngForm" (ngSubmit)="editingService ? saveService(serviceForm) : addService(serviceForm)">
-          <label for="name">Service Name:</label>
-          <input type="text" id="name" [(ngModel)]="serviceName" name="name" required>
-  
-          <label for="price">Base Price ($):</label>
-          <input type="number" id="price" [(ngModel)]="servicePrice" name="price" required>
-  
-          <label for="lengthBased">Length-Based Pricing:</label>
-          <input type="checkbox" id="lengthBased" [(ngModel)]="serviceLengthBased" name="lengthBased">
-  
-          <label *ngIf="serviceLengthBased" for="lengthPrice">Length-Based Size Price:</label>
-          <!-- <input *ngIf="serviceLengthBased" type="number" id="lengthPrice" [(ngModel)]="serviceLengthPrice" name="lengthPrice" disabled> -->
-  
-          <button type="submit">{{ editingService ? 'Save Changes' : 'Add Service' }}</button>
-          <button *ngIf="editingService" type="button" (click)="resetServiceForm()">Cancel</button>
-        </form>
-      </div>
-    </div>
+    <h3>Services</h3>
+    <table class="services-table">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Price</th>
+          <th>Include Length in Price?</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let service of this.business.services">
+          <td>{{ service.name }}</td>
+          <td>
+            <ng-container *ngIf="editingService === service.name; else displayServicePrice">
+              <input type="text" [(ngModel)]="newService.price" (keydown.enter)="saveServiceEdit()" (keydown.escape)="cancelServiceEdit()">
+            </ng-container>
+            <ng-template #displayServicePrice>
+              ${{ service.price }}
+            </ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="editingService === service.name; else displayPlusLength">
+              <input type="checkbox" [(ngModel)]="newService.isLengthBased">
+            </ng-container>
+            <ng-template #displayPlusLength>
+              {{ service.isLengthBased ? 'Yes' : 'No' }}
+            </ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="editingService === service.name; else editServiceButton">
+              <button (click)="saveServiceEdit()">Save</button>
+              <button (click)="cancelServiceEdit()">Cancel</button>
+            </ng-container>
+            <ng-template #editServiceButton>
+              <button (click)="startEditingService(service.name, service.price, service.isLengthBased)">Edit</button>
+            </ng-template>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="text" [(ngModel)]="newService.name" placeholder="New Service"></td>
+          <td><input type="text" [(ngModel)]="newService.price" placeholder="Price"></td>
+          <td><input type="checkbox" [(ngModel)]="newService.isLengthBased"></td>
+          <td><button (click)="addNewService()">Add</button></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   
 }
 @else{
-  <div class="customer-view-container">
-    <!-- Sizes Section -->
-    <div class="size-container">
-      <h2>Available Sizes</h2>
-      <div class="size-list">
-        <div *ngFor="let size of sizes" class="size-item">
-          <h3>{{ size.size }}</h3>
-          <p>Price Range: ${{ size.minPrice }} - ${{ size.maxPrice }}</p>
-        </div>
-      </div>
-    </div>
+  <div class="services-container">
+
+    <h2>Sizes</h2>
+    <table class="services-table">
+      <thead>
+        <tr>
+          <th>Size</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let size of this.business.sizes">
+          <td>{{ size.name }}</td>
+          <td>${{ size.minPrice }} - ${{ size.maxPrice }}</td>
+        </tr>
+      </tbody>
+    </table>
   
-    <!-- Services Section -->
-    <div class="services-section">
-      <h2>Available Services</h2>
-      <div class="service-list">
-        <div *ngFor="let service of services" class="service-item">
-          <h3>{{ service.name }}</h3>
-          <p>Price: ${{ service.price }}
-            <span *ngIf="service.lengthBased"> + Length Price</span>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  
+    <h2>Services</h2>
+    <table class="services-table">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let service of this.business.services">
+          <td>{{ service.name }}</td>
+          <td>${{ service.price }}{{ service.isLengthBased ? ' + length price' : '' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>  
 }

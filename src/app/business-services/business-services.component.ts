@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { Business } from '../shared/firestore.service';
+import { Business, Service, Size } from '../shared/firestore.service';
 import { AuthService } from '../shared/auth.service';
 
 @Component({
@@ -17,174 +17,71 @@ export class BusinessServicesComponent implements OnInit {
   @Input() business!: Business;
   services: Service[] = [];
   sizes: Size[] = [];
-  newService: Service = { id: 0, name: '', price: 0, lengthBased: false };
-  newSize: Size = { id: 0, size: '', minPrice: 0, maxPrice: 0 };
-  editingService: Service | null = null;
-  editingSize: Size | null = null;
+  newService: Service = { name: '', price: 0, isLengthBased: false };
+  newSize: Size = { name: '', minPrice: 0, maxPrice: 0 };
+  editingService: string | null = null;
+  editingSize: string | null = null;
 
   ngOnInit(): void {
-    this.services = [
-      { id: 1, name: 'Manicure', price: 20, lengthBased: false },
-      { id: 2, name: 'Pedicure', price: 30, lengthBased: true }
-    ];
-    this.sizes = [
-      { id: 1, size: 'Small', minPrice: 5, maxPrice: 10 },
-      { id: 2, size: 'Medium', minPrice: 10, maxPrice: 15 },
-      { id: 3, size: 'Large', minPrice: 15, maxPrice: 20 }
-    ];
+    this.services = this.business.services;
+    this.sizes = this.business.sizes;
+    // this.services = [
+    //   { name: 'Manicure', price: 30, isLengthBased: false },
+    //   { name: 'Pedicure', price: 40, isLengthBased: false },
+    //   { name: 'Acrylic Nails', price: 50, isLengthBased: true }
+    // ];
+
+    // this.sizes = [
+    //   { name: 'Short', minPrice: 10, maxPrice: 20 },
+    //   { name: 'Medium', minPrice: 20, maxPrice: 30 },
+    //   { name: 'Long', minPrice: 30, maxPrice: 40 }
+    // ];
+
   }
 
-  addService(form: NgForm): void {
-    if (form.valid) {
-      const newServiceId = this.services.length ? Math.max(...this.services.map(service => service.id)) + 1 : 1;
-      this.newService.id = newServiceId;
-      this.services.push({ ...this.newService });
-      this.resetServiceForm();
-      form.resetForm();
+  startEditingService(name: string, price: number, isLengthBased: boolean): void {
+    this.editingService = name;
+    this.newService = { name, price, isLengthBased };
+  }
+
+  saveServiceEdit(): void {
+    const index = this.services.findIndex(service => service.name === this.editingService);
+    if (index !== -1) {
+      this.services[index] = { ...this.newService };
+      this.editingService = null;
     }
   }
 
-  addSize(form: NgForm): void {
-    if (form.valid) {
-      const newSizeId = this.sizes.length ? Math.max(...this.sizes.map(size => size.id)) + 1 : 1;
-      this.newSize.id = newSizeId;
-      this.sizes.push({ ...this.newSize });
-      this.resetSizeForm();
-      form.resetForm();
-    }
-  }
-
-  editService(service: Service): void {
-    this.editingService = { ...service };
-  }
-
-  saveService(form: NgForm): void {
-    if (form.valid && this.editingService) {
-      const index = this.services.findIndex(service => service.id === this.editingService?.id);
-      if (index > -1) {
-        this.services[index] = this.editingService;
-      }
-      this.resetServiceForm();
-      form.resetForm();
-    }
-  }
-
-  editSize(size: Size): void {
-    this.editingSize = { ...size };
-  }
-
-  saveSize(form: NgForm): void {
-    if (form.valid && this.editingSize) {
-      const index = this.sizes.findIndex(size => size.id === this.editingSize?.id);
-      if (index > -1) {
-        this.sizes[index] = this.editingSize;
-      }
-      this.resetSizeForm();
-      form.resetForm();
-    }
-  }
-
-  removeService(serviceId: number): void {
-    this.services = this.services.filter(service => service.id !== serviceId);
-  }
-
-  removeSize(sizeId: number): void {
-    this.sizes = this.sizes.filter(size => size.id !== sizeId);
-  }
-
-  resetServiceForm(): void {
-    this.newService = { id: 0, name: '', price: 0, lengthBased: false };
+  cancelServiceEdit(): void {
     this.editingService = null;
+    console.log(this.business.services)
   }
 
-  resetSizeForm(): void {
-    this.newSize = { id: 0, size: '', minPrice: 0, maxPrice: 0 };
+  startEditingSize(name: string, minPrice: number, maxPrice: number): void {
+    this.editingSize = name;
+    this.newSize = { name, minPrice, maxPrice };
+  }
+
+  saveSizeEdit(): void {
+    const index = this.sizes.findIndex(size => size.name === this.editingSize);
+    if (index !== -1) {
+      this.sizes[index] = { ...this.newSize };
+      this.editingSize = null;
+    }
+  }
+
+  cancelSizeEdit(): void {
     this.editingSize = null;
   }
 
-  get serviceName(): string {
-    return this.editingService?.name || this.newService.name;
+  addNewService(): void {
+    this.services.push({ ...this.newService });
+    this.newService = { name: '', price: 0, isLengthBased: false };
   }
 
-  set serviceName(value: string) {
-    if (this.editingService) {
-      this.editingService.name = value;
-    } else {
-      this.newService.name = value;
-    }
-  }
-
-  get servicePrice(): number {
-    return this.editingService?.price || this.newService.price;
-  }
-
-  set servicePrice(value: number) {
-    if (this.editingService) {
-      this.editingService.price = value;
-    } else {
-      this.newService.price = value;
-    }
-  }
-
-  get serviceLengthBased(): boolean {
-    return this.editingService?.lengthBased || this.newService.lengthBased;
-  }
-
-  set serviceLengthBased(value: boolean) {
-    if (this.editingService) {
-      this.editingService.lengthBased = value;
-    } else {
-      this.newService.lengthBased = value;
-    }
-  }
-
-  get sizeName(): string {
-    return this.editingSize?.size || this.newSize.size;
-  }
-
-  set sizeName(value: string) {
-    if (this.editingSize) {
-      this.editingSize.size = value;
-    } else {
-      this.newSize.size = value;
-    }
-  }
-
-  get sizeMinPrice(): number {
-    return this.editingSize?.minPrice || this.newSize.minPrice;
-  }
-
-  set sizeMinPrice(value: number) {
-    if (this.editingSize) {
-      this.editingSize.minPrice = value;
-    } else {
-      this.newSize.minPrice = value;
-    }
-  }
-
-  get sizeMaxPrice(): number {
-    return this.editingSize?.maxPrice || this.newSize.maxPrice;
-  }
-
-  set sizeMaxPrice(value: number) {
-    if (this.editingSize) {
-      this.editingSize.maxPrice = value;
-    } else {
-      this.newSize.maxPrice = value;
-    }
+  addNewSize(): void {
+    this.sizes.push({ ...this.newSize });
+    this.newSize = { name: '', minPrice: 0, maxPrice: 0 };
   }
 }
 
-export interface Service {
-  id: number;
-  name: string;
-  price: number; // Static price or base price
-  lengthBased: boolean; // Indicates if the service has additional cost based on length size
-}
-
-export interface Size {
-  id: number;
-  size: string;
-  minPrice: number; // Minimum price for the size
-  maxPrice: number; // Maximum price for the size
-}
